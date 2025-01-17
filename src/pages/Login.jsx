@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext.jsx";
 import { Link } from "react-router-dom";
 
 function Login() {

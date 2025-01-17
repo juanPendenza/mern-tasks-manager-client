@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { postLogin, postRegister } from "../api/auth.js";
+import Cookies from "js-cookie";
 
 // creo el contexto
 export const AuthContext = createContext();
@@ -39,13 +40,14 @@ export const AuthProvider = ({ children }) => {
   // función logea un usuario autenticado
   const signin = async (user) => {
     try {
-      // llama a postRegister
+      // llama a postLogin
       const res = await postLogin(user);
-      console.log(res);
+      console.log(res.data);
+
       // setea el usuario con los datos del form
-      // setUser(res.data);
-      // una vez que se registra el usuario, pasa a estar autenticado
-      // setIsAuthenticated(true);
+      setUser(res.data);
+      // una vez que se logea el usuario, pasa a estar autenticado
+      setIsAuthenticated(true);
     } catch (error) {
       // si hay un error lo guardo en el estado errors
       setErrors(error.response.data);
@@ -63,6 +65,15 @@ export const AuthProvider = ({ children }) => {
       return () => clearTimeout(timer);
     }
   }, [errors]);
+
+  useEffect(() => {
+    // leo las cookies del encabezado
+    const cookies = Cookies.get();
+
+    if (cookies.token) {
+      console.log(cookies.token);
+    }
+  }, []);
 
   return (
     <AuthContext.Provider

@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../context/AuthContext.jsx";
 import { useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
