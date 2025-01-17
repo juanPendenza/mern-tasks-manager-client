@@ -6,3 +6,6 @@ const API = "http://localhost:3000/api";
 
 // post a /register
 export const postRegister = (user) => axios.post(`${API}/register`, user);
+
+// post a /login
+export const postLogin = (user) => axios.post(`${API}/login`, user);

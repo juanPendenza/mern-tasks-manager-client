@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { postRegister } from "../api/auth.js";
+import { createContext, useContext, useEffect, useState } from "react";
+import { postLogin, postRegister } from "../api/auth.js";
 
 // creo el contexto
 export const AuthContext = createContext();
@@ -35,8 +35,39 @@ export const AuthProvider = ({ children }) => {
       setErrors(error.response.data);
     }
   };
+
+  // función logea un usuario autenticado
+  const signin = async (user) => {
+    try {
+      // llama a postRegister
+      const res = await postLogin(user);
+      console.log(res);
+      // setea el usuario con los datos del form
+      // setUser(res.data);
+      // una vez que se registra el usuario, pasa a estar autenticado
+      // setIsAuthenticated(true);
+    } catch (error) {
+      // si hay un error lo guardo en el estado errors
+      setErrors(error.response.data);
+    }
+  };
+
+  // función que limpia los errores
+  useEffect(() => {
+    // limpio los errores desp de 3 seg
+    if (errors.length > 0) {
+      const timer = setTimeout(() => {
+        setErrors([]);
+      }, 3000);
+      // limpio el timer por si el usuario cambia de pag o deja de usar es useEffect
+      return () => clearTimeout(timer);
+    }
+  }, [errors]);
+
   return (
-    <AuthContext.Provider value={{ user, signup, isAuthenticated, errors }}>
+    <AuthContext.Provider
+      value={{ user, signup, signin, isAuthenticated, errors }}
+    >
       {children}
     </AuthContext.Provider>
   );

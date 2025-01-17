@@ -28,6 +28,7 @@ function Register() {
 
   return (
     <div className="max-w-md border p-2">
+      <h1 className="font-bold text-3xl">Register</h1>
       {registerErrors.map((error, index) => (
         <div key={index} className="bg-red-500 text-white p-2">
           {error}
@@ -67,6 +68,12 @@ function Register() {
           Register
         </button>
       </form>
+      <p>
+        Alredy have an account?{" "}
+        <Link className="border p-2" to={"/login"}>
+          Sign in
+        </Link>
+      </p>
     </div>
   );
 }
