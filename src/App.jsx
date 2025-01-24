@@ -5,7 +5,6 @@ import Login from "./pages/Login.jsx";
 import { AuthProvider } from "./context/AuthContext.jsx";
 import Home from "./pages/Home.jsx";
 import Tasks from "./pages/Tasks.jsx";
-import AddTask from "./pages/AddTask.jsx";
 import Task from "./pages/Task.jsx";
 import Profile from "./pages/Profile.jsx";
 import AuthenticateRoutes from "./components/AuthenticateRoutes.jsx";
@@ -23,7 +22,7 @@ function App() {
           <Route element={<AuthenticateRoutes />}>
             <Route path="/tasks" element={<Tasks />} />
             <Route path="/tasks/:id" element={<Task />} />
-            <Route path="/tasks/add-task" element={<AddTask />} />
+            <Route path="/tasks/add-task" element={<Task />} />
             <Route path="/profile" element={<Profile />} />
           </Route>
         </Routes>

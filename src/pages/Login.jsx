@@ -1,10 +1,13 @@
 import { useForm } from "react-hook-form";
 import { useAuthContext } from "../context/AuthContext.jsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 function Login() {
   // traigo los datos del contexto
-  const { signin, errors: signinErrors } = useAuthContext();
+  const { signin, errors: signinErrors, isAuthenticated } = useAuthContext();
+  // se usa para redirigir
+  const navigate = useNavigate();
 
   // traigo lo que necesito de react-hook-form
   const {
@@ -12,6 +15,11 @@ function Login() {
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  // cuando el usuario ya esta autenticado, redirigimos a su lista de tareas
+  useEffect(() => {
+    if (isAuthenticated) navigate("/tasks");
+  }, [isAuthenticated]);
 
   // función que maneja el sumbit el form
   const onSubmit = handleSubmit(async (values) => {
@@ -22,7 +30,7 @@ function Login() {
     <div className="max-w-md border p-2">
       <h1 className="font-bold text-3xl">Login</h1>
       {signinErrors.map((error, index) => (
-        <div key={index} className="bg-red-500 text-white p-2">
+        <div key={index} className="bg-red-500 text-white p-2 mt-2">
           {error}
         </div>
       ))}

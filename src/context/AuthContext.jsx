@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { postLogin, postRegister } from "../api/auth.js";
+import { postLogin, postRegister, verifyToken } from "../api/auth.js";
 import Cookies from "js-cookie";
 
 // creo el contexto
@@ -21,6 +21,8 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [errors, setErrors] = useState([]);
+  // es un estado que creo para saber si están cargando los datos del usuario
+  const [loading, setLoading] = useState(true);
 
   // función registra un usuario en la db
   const signup = async (user) => {
@@ -43,7 +45,6 @@ export const AuthProvider = ({ children }) => {
       // llama a postLogin
       const res = await postLogin(user);
       console.log(res.data);
-
       // setea el usuario con los datos del form
       setUser(res.data);
       // una vez que se logea el usuario, pasa a estar autenticado
@@ -61,23 +62,61 @@ export const AuthProvider = ({ children }) => {
       const timer = setTimeout(() => {
         setErrors([]);
       }, 3000);
-      // limpio el timer por si el usuario cambia de pag o deja de usar es useEffect
+      // limpio el timer para que no se cree cuando el usuario cambia de pag o deja de usar es useEffect
       return () => clearTimeout(timer);
     }
   }, [errors]);
 
+  // verifico la autenticación cada vez que carga la pág
   useEffect(() => {
-    // leo las cookies del encabezado
-    const cookies = Cookies.get();
-
-    if (cookies.token) {
-      console.log(cookies.token);
-    }
+    // ejecuto la función que checkea que el token enviado en el login sea correcto
+    (async function checkLogin() {
+      // leo las cookies
+      const cookies = Cookies.get();
+      // si dentro de las cookies no existe el token
+      if (!cookies.token) {
+        // desautentico al usuario
+        setIsAuthenticated(false);
+        // la página no está cargando
+        setLoading(false);
+        // no existen los datos del usuario
+        return setUser(null);
+      }
+      // si dentro de las cookies existe el token
+      try {
+        // ejecuto la función que lo verifica (para que no se pueda establecer uno falso desde el navegador)
+        const res = await verifyToken(cookies.token);
+        // si no responde nada
+        if (!res.data) {
+          // desautentico al usuario
+          setIsAuthenticated(false);
+          // la página no está cargando
+          setLoading(false);
+          return;
+        }
+        // si responde algo
+        // autentico al usuario
+        setIsAuthenticated(true);
+        // lo lleno con sus datos
+        setUser(res.data);
+        // cargo la página
+        setLoading(false);
+      } catch (error) {
+        // si hay algún error lo muestro
+        console.log(error);
+        // desautentico al usuario
+        setIsAuthenticated(false);
+        // no existen sus datos
+        setUser(null);
+        // l página no carga
+        setLoading(false);
+      }
+    })();
   }, []);
 
   return (
     <AuthContext.Provider
-      value={{ user, signup, signin, isAuthenticated, errors }}
+      value={{ user, signup, signin, isAuthenticated, errors, loading }}
     >
       {children}
     </AuthContext.Provider>
