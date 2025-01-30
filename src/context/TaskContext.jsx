@@ -31,8 +31,7 @@ export const TaskProvider = ({ children }) => {
 
   // función que cera una tarea
   const createTask = async (task) => {
-    const res = await postTask(task);
-    console.log(res);
+    await postTask(task);
   };
 
   return (

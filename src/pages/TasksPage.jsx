@@ -12,6 +12,7 @@ function TasksPage() {
   return (
     <div>
       <ul>
+        {/* recorro las tareas y las muestro en pantalla */}
         {tasks.map((task) => (
           <li key={task._id} className="border my-3">
             <h1>{task.title}</h1>

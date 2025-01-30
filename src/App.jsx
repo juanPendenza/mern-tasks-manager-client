@@ -9,12 +9,14 @@ import TaskForm from "./pages/TaskForm.jsx";
 import Profile from "./pages/Profile.jsx";
 import AuthenticateRoutes from "./components/AuthenticateRoutes.jsx";
 import { TaskProvider } from "./context/TaskContext.jsx";
+import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
+          <Navbar />
           <Routes>
             {/* RUTAS PARA TODO EL MUNDO */}
             <Route path="/" element={<Home />} />

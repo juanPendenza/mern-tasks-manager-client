@@ -1,5 +1,10 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import { postLogin, postRegister, verifyToken } from "../api/auth.js";
+import {
+  postLogin,
+  postLogout,
+  postRegister,
+  verifyToken,
+} from "../api/auth.js";
 import Cookies from "js-cookie";
 
 // creo el contexto
@@ -52,6 +57,20 @@ export const AuthProvider = ({ children }) => {
     } catch (error) {
       // si hay un error lo guardo en el estado errors
       setErrors(error.response.data);
+    }
+  };
+
+  // función que cierra sesión
+  const logout = async () => {
+    try {
+      // ejecuta postLogin
+      await postLogout();
+      // desautentica al usuario
+      setIsAuthenticated(false);
+      // setea el usuario a nulo (no hay usuario)
+      setUser(null);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -116,7 +135,7 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, signup, signin, isAuthenticated, errors, loading }}
+      value={{ user, signup, signin, logout, isAuthenticated, errors, loading }}
     >
       {children}
     </AuthContext.Provider>
