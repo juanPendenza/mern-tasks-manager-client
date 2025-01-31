@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useTaskContext } from "../context/TaskContext.jsx";
+import TaskCard from "../components/TaskCard.jsx";
 
 function TasksPage() {
   const { loadTasks, tasks } = useTaskContext();
@@ -13,11 +14,8 @@ function TasksPage() {
     <div>
       <ul>
         {/* recorro las tareas y las muestro en pantalla */}
-        {tasks.map((task) => (
-          <li key={task._id} className="border my-3">
-            <h1>{task.title}</h1>
-            <p>{task.description}</p>
-          </li>
+        {tasks.map((t) => (
+          <TaskCard task={t} key={t._id} />
         ))}
       </ul>
     </div>

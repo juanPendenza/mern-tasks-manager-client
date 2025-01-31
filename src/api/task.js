@@ -17,7 +17,7 @@ export const getTask = (task) => instance.get(`/tasks/${task._id}`, task);
 export const postTask = (task) => instance.post("/tasks", task);
 
 // actualiza una tarea por su id
-export const updateTask = (task) => instance.put(`/tasks${task._id}`, task);
+export const updateTask = (task) => instance.put(`/tasks/${task._id}`, task);
 
 // borra una tarea por su id
-export const deleteTask = (task) => instance.delete(`/tasks${task._id}`, task);
+export const deleteTask = (id) => instance.delete(`/tasks/${id}`);

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getTasks, postTask } from "../api/task.js";
+import { deleteTask, getTasks, postTask, updateTask } from "../api/task.js";
 
 // creo el contexto
 export const TaskContext = createContext();
@@ -29,13 +29,37 @@ export const TaskProvider = ({ children }) => {
     }
   };
 
+  // función que borra una tarea por su id
+  const eliminateTask = async (id) => {
+    try {
+      const res = await deleteTask(id);
+      // el error 204 no responde nada
+      // entonces vuelvo a setear las tareas sin la que eliminé, para que se actualicen en /tasks
+      if (res.status === 204) setTasks(tasks.filter((task) => task._id !== id));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // función que actualiza una tarea
+  /* const editTask = async (task) => {
+    try {
+      const res = await updateTask(task);
+      setTasks(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  }; */
+
   // función que cera una tarea
   const createTask = async (task) => {
     await postTask(task);
   };
 
   return (
-    <TaskContext.Provider value={{ tasks, createTask, loadTasks }}>
+    <TaskContext.Provider
+      value={{ tasks, createTask, loadTasks, eliminateTask }}
+    >
       {children}
     </TaskContext.Provider>
   );
