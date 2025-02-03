@@ -1,5 +1,11 @@
 import { createContext, useContext, useState } from "react";
-import { deleteTask, getTasks, postTask, updateTask } from "../api/task.js";
+import {
+  deleteTask,
+  getTask,
+  getTasks,
+  postTask,
+  updateTask,
+} from "../api/task.js";
 
 // creo el contexto
 export const TaskContext = createContext();
@@ -19,11 +25,21 @@ export const useTaskContext = () => {
 export const TaskProvider = ({ children }) => {
   const [tasks, setTasks] = useState([]);
 
-  // función que muestra las tareas
+  // función que devuelve las tareas
   const loadTasks = async () => {
     try {
       const res = await getTasks();
       setTasks(res.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // función que devuelve una sola tarea por su id
+  const loadTask = async (id) => {
+    try {
+      const res = await getTask(id);
+      return res.data;
     } catch (error) {
       console.error(error);
     }
@@ -42,23 +58,30 @@ export const TaskProvider = ({ children }) => {
   };
 
   // función que actualiza una tarea
-  /* const editTask = async (task) => {
+  const editTask = async (id, task) => {
     try {
-      const res = await updateTask(task);
-      setTasks(res.data);
+      await updateTask(id, task);
     } catch (error) {
       console.error(error);
     }
-  }; */
+  };
 
   // función que cera una tarea
   const createTask = async (task) => {
-    await postTask(task);
+    const res = await postTask(task);
+    console.log(res);
   };
 
   return (
     <TaskContext.Provider
-      value={{ tasks, createTask, loadTasks, eliminateTask }}
+      value={{
+        tasks,
+        createTask,
+        loadTasks,
+        eliminateTask,
+        loadTask,
+        editTask,
+      }}
     >
       {children}
     </TaskContext.Provider>

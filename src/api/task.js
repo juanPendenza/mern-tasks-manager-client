@@ -11,13 +11,13 @@ const instance = axios.create({
 export const getTasks = () => instance.get("/tasks");
 
 // pide una tarea por su id
-export const getTask = (task) => instance.get(`/tasks/${task._id}`, task);
+export const getTask = (id) => instance.get(`/tasks/${id}`);
 
 // create una nueva tarea
 export const postTask = (task) => instance.post("/tasks", task);
 
 // actualiza una tarea por su id
-export const updateTask = (task) => instance.put(`/tasks/${task._id}`, task);
+export const updateTask = (id, task) => instance.put(`/tasks/${id}`, task);
 
 // borra una tarea por su id
 export const deleteTask = (id) => instance.delete(`/tasks/${id}`);

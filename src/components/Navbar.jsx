@@ -7,7 +7,10 @@ function Navbar() {
   return (
     <div className="navbar border">
       <div className="flex-1">
-        <Link to={"/"} className="btn btn-ghost text-xl">
+        <Link
+          to={isAuthenticated ? "/tasks" : "/"}
+          className="btn btn-ghost text-xl"
+        >
           Task manager
         </Link>
       </div>

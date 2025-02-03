@@ -2,6 +2,10 @@ import React from "react";
 import { useTaskContext } from "../context/TaskContext.jsx";
 import { Link } from "react-router-dom";
 
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
 function TaskCard({ task }) {
   const { eliminateTask } = useTaskContext();
 
@@ -12,7 +16,7 @@ function TaskCard({ task }) {
       {/* descripción de la tarea */}
       <p>{task.description}</p>
       {/* fecha de la tarea */}
-      <p>{new Date(task.date).toLocaleDateString()}</p>
+      <p>{dayjs(task.date).utc().format("DD/MM/YYYY")}</p>
       {/* botón para editar */}
       <Link to={`/tasks/${task._id}`} className="border bg-zinc-600">
         Edit
