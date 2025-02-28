@@ -6,6 +6,7 @@ import {
   verifyToken,
 } from "../api/auth.js";
 import Cookies from "js-cookie";
+import { useTaskContext } from "./TaskContext.jsx";
 
 // creo el contexto
 export const AuthContext = createContext();
@@ -49,7 +50,6 @@ export const AuthProvider = ({ children }) => {
     try {
       // llama a postLogin
       const res = await postLogin(user);
-      console.log(res.data);
       // setea el usuario con los datos del form
       setUser(res.data);
       // una vez que se logea el usuario, pasa a estar autenticado
@@ -80,7 +80,7 @@ export const AuthProvider = ({ children }) => {
     if (errors.length > 0) {
       const timer = setTimeout(() => {
         setErrors([]);
-      }, 3000);
+      }, 3500);
       // limpio el timer para que no se cree cuando el usuario cambia de pag o deja de usar es useEffect
       return () => clearTimeout(timer);
     }

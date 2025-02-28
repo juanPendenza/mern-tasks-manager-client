@@ -6,17 +6,14 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import Home from "./pages/Home.jsx";
 import TasksPage from "./pages/TasksPage.jsx";
 import TaskForm from "./pages/TaskForm.jsx";
-import Profile from "./pages/Profile.jsx";
 import AuthenticateRoutes from "./components/AuthenticateRoutes.jsx";
 import { TaskProvider } from "./context/TaskContext.jsx";
-import Navbar from "./components/Navbar.jsx";
 
 function App() {
   return (
     <AuthProvider>
       <TaskProvider>
         <BrowserRouter>
-          <Navbar />
           <Routes>
             {/* RUTAS PARA TODO EL MUNDO */}
             <Route path="/" element={<Home />} />
@@ -27,7 +24,6 @@ function App() {
               <Route path="/tasks" element={<TasksPage />} />
               <Route path="/tasks/:id" element={<TaskForm />} />
               <Route path="/tasks/add-task" element={<TaskForm />} />
-              <Route path="/profile" element={<Profile />} />
             </Route>
           </Routes>
         </BrowserRouter>

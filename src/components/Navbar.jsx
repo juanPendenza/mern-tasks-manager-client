@@ -1,43 +1,53 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useAuthContext } from "../context/AuthContext.jsx";
 
 function Navbar() {
   const { isAuthenticated, logout } = useAuthContext();
 
   return (
-    <div className="navbar border">
-      <div className="flex-1">
+    <div className="sticky top-0 z-50 navbar flex justify-between items-center h-20 border-b border-[#de4a00] bg-[#100013]">
+      <div>
         <Link
           to={isAuthenticated ? "/tasks" : "/"}
-          className="btn btn-ghost text-xl"
+          className="btn btn-ghost text-xl lg:text-3xl text-white"
         >
-          Task manager
+          To-Do list
         </Link>
       </div>
-      <div className="flex-none">
-        <ul className="menu menu-horizontal px-1">
+      <div>
+        <ul className="menu menu-horizontal px-1 flex items-center gap-2">
           {!isAuthenticated ? (
             <>
               <li>
-                <Link to={"/login"}>Login</Link>
+                <Link className="link link-primary lg:text-lg" to={"/login"}>
+                  Iniciar cesión
+                </Link>
               </li>
               <li>
-                <Link to={"/register"}>Register</Link>
+                <Link className="link link-primary lg:text-lg" to={"/register"}>
+                  Registrar
+                </Link>
               </li>
             </>
           ) : (
             <>
               <li>
-                <Link to={"/tasks/add-task"}>Add task</Link>
+                <Link
+                  className="link link-primary lg:text-lg"
+                  to={"/tasks/add-task"}
+                >
+                  Agregar tarea
+                </Link>
               </li>
               <li>
                 <Link
+                  className="link link-primary lg:text-lg"
                   to={"/"}
                   onClick={() => {
                     logout();
                   }}
                 >
-                  Logout
+                  Cerrar cesión
                 </Link>
               </li>
             </>
