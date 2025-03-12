@@ -93,7 +93,7 @@ function Register() {
             <p>
               Ya tienes una cuenta?{" "}
               <Link className="p-2 link link-primary" to={"/login"}>
-                Iniciar cesión
+                Iniciar sesión
               </Link>
             </p>
           </div>

@@ -15,12 +15,12 @@ function Navbar() {
         </Link>
       </div>
       <div>
-        <ul className="menu menu-horizontal px-1 flex items-center gap-2">
+        <ul className="menu menu-horizontal px-1 flex items-center">
           {!isAuthenticated ? (
             <>
               <li>
                 <Link className="link link-primary lg:text-lg" to={"/login"}>
-                  Iniciar cesión
+                  Iniciar sesión
                 </Link>
               </li>
               <li>
@@ -47,7 +47,7 @@ function Navbar() {
                     logout();
                   }}
                 >
-                  Cerrar cesión
+                  Salir
                 </Link>
               </li>
             </>
