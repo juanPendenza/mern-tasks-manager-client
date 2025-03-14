@@ -1,3 +1,4 @@
 # Todo list
 
-https://mern-tasks-manager-client.onrender.com
+Frontend: https://mern-tasks-manager-client.onrender.com
+Backend: https://mern-tasks-manager-server.onrender.com
