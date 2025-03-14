@@ -11,9 +11,8 @@ function Home() {
           <div className="max-w-md">
             <h1 className="text-5xl font-bold text-white">To-Do list</h1>
             <p className="py-6 text-gray-400 text-md px-5 lg:text-lg">
-              Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda
-              excepturi exercitationem quasi. In deleniti eaque aut repudiandae
-              et a id nisi.
+              Bienvenido a esta lista de tareas. Registrate en el sistema y
+              comenza a organizar tus tareas!
             </p>
             <Link
               to={"/tasks"}
