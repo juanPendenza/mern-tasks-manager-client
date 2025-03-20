@@ -3,6 +3,6 @@ import axios from "axios";
 
 // esta es una instancia de axios con mis propias config
 export const instance = axios.create({
-  baseURL: import.meta.env.VITE_BACKEND_URL || "http://localhost:3000", // ruta al backend
+  baseURL: import.meta.env.VITE_BACKEND_URL /*  || "http://localhost:3000" */, // ruta al backend
   withCredentials: true, // es para que se establezcan las cookies
 });
