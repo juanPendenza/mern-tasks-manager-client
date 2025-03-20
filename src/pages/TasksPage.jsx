@@ -9,10 +9,11 @@ function TasksPage() {
 
   // cuando carga la página se piden todas las tareas al back
   useEffect(() => {
-    (async function () {
+    loadTasks();
+    /* (async function () {
       await loadTasks();
       return;
-    })();
+    })(); */
   }, []);
 
   return (
