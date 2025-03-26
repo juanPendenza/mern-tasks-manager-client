@@ -6,7 +6,6 @@ import {
   verifyToken,
 } from "../api/auth.js";
 import Cookies from "js-cookie";
-import { useTaskContext } from "./TaskContext.jsx";
 
 // creo el contexto
 export const AuthContext = createContext();
